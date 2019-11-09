@@ -1,3 +1,3 @@
 # CV_utils
 
-collect useful cv-related python programs.
+collect some useful **cv-related python programs**.
