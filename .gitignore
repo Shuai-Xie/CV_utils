@@ -1,0 +1,5 @@
+.DS_Store
+
+.idea/*.xml
+.idea/*.iml
+.idea/*/*.xml
