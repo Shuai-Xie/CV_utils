@@ -1,9 +1,13 @@
 from PIL import ImageGrab
 import numpy as np
 import cv2
-import datetime
 
-im = ImageGrab.grab(bbox=(100, 100, 800, 600))  # bbox = total screen 1920,1080
+"""
+only used in MacOS and Windows, linux can't use ImageGrab!
+"""
+
+# can set a bbox=(100, 100, 800, 600)
+im = ImageGrab.grab()  # bbox = total screen 1920,1080
 w, h = im.size
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 fps = 15
@@ -17,7 +21,7 @@ cv2.resizeWindow(winname, 640, 360)
 cv2.moveWindow(winname, 100, 100)
 
 while True:
-    im = ImageGrab.grab(bbox=(100, 100, 800, 600))
+    im = ImageGrab.grab()
     imm = cv2.cvtColor(np.array(im), cv2.COLOR_RGB2BGR)
     cv2.imshow(winname, imm)
 
