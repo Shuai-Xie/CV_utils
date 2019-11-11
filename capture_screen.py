@@ -1,10 +1,12 @@
+from mss import mss
 from PIL import ImageGrab
+import pyscreenshot as pss
 import numpy as np
 import cv2
 
 """
 only MacOS and Windows can use PIL.ImageGrad
-for linux, import pyscreenshot as ImageGrad.
+for linux, import pyscreen
 """
 
 # can set a bbox=(100, 100, 800, 600)
