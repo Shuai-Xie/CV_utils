@@ -3,7 +3,8 @@ import numpy as np
 import cv2
 
 """
-only used in MacOS and Windows, linux can't use ImageGrab!
+only MacOS and Windows can use PIL.ImageGrad
+for linux, import pyscreenshot as ImageGrad.
 """
 
 # can set a bbox=(100, 100, 800, 600)

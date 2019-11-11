@@ -8,3 +8,4 @@ collect some useful **cv-related python programs**.
 - opencv-python
 - pillow
 - numpy
+- pyscreenshot: ImageGrab replacement for linux 录屏
