@@ -6,7 +6,7 @@ import cv2
 
 """
 only MacOS and Windows can use PIL.ImageGrad
-for linux, import pyscreen
+for linux, import pyscreen as ImageGrab
 """
 
 # can set a bbox=(100, 100, 800, 600)
