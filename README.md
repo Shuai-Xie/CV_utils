@@ -3,7 +3,7 @@
 collect some useful **cv-related python programs**.
 
 
-import libs
+import
 
 - opencv-python
 - pillow
