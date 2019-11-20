@@ -6,6 +6,7 @@ collect some useful **cv-related python programs**.
 import
 
 - opencv-python
+- opencv-contrib-python
 - pillow
 - numpy
 - mss: 较快的录屏方式, win/linux/mac 都支持
@@ -25,3 +26,6 @@ compare **FPS** of 3 ways to capture screen
 (0, 0, 800, 600),  # 18.7 > 2.4 > 1.4
 (0, 0, 640, 360),  # 40.5 > 2.3 > 2.3 
 ```
+
+### detect
+- [selective search](https://www.learnopencv.com/selective-search-for-object-detection-cpp-python/)
