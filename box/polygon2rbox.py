@@ -37,11 +37,7 @@ def cal_offset_and_pad_img(img, rbox, mode='edge'):
     """
     :param img: original image
     :param rbox: rotated box
-    :param mode: pad mode,
-        edge 边缘; linear_ramp: 边缘递减;
-        mean; median;
-        symmetric 对称;
-    :return:
+    :param mode: pad mode, edge 边缘; linear_ramp: 边缘递减; symmetric 边缘对称;
     """
     img_h, img_w = img.shape[:2]
     img_bounds = [0, 0, img_w, img_h]
@@ -59,7 +55,7 @@ def cal_offset_and_pad_img(img, rbox, mode='edge'):
     return offset, img
 
 
-def test_one_img(pad_mode='edge'):
+def polygon2rbox(pad_mode='edge'):
     """
     :param pad_mode: whether padding img when rbox exceeds ori img bounds
     """
@@ -70,7 +66,6 @@ def test_one_img(pad_mode='edge'):
     # points = points[::-1]   # cvt clock-wise to anti, result is same
     poly_pts = np.array([pt_float2int(pt, img_w, img_h) for pt in points])
     rect = cv2.minAreaRect(poly_pts)  # center_pts, angle
-    print(rect)
     polygon = np.array(poly_pts).astype(np.int)
 
     # cal rotated box
@@ -81,11 +76,8 @@ def test_one_img(pad_mode='edge'):
         polygon += offset
         rbox += offset
 
-    # draw ori polygon
-    # print(polygon)
+    # draw ori polygon, rotated box
     cv2.drawContours(img, contours=[polygon], contourIdx=0, color=(0, 255, 1), thickness=3)
-    # draw rotated box
-
     cv2.drawContours(img, contours=[rbox], contourIdx=0, color=(0, 0, 255), thickness=3)
 
     if pad_mode:
@@ -94,11 +86,11 @@ def test_one_img(pad_mode='edge'):
         cv2.imwrite('rbox.png', img)
 
 
-rbox = (
+a_rbox = (
     (182.0570068359375, 266.25909423828125),  # center x, y
     (292.0228271484375, 118.38426971435547),  # w, h
     -20.684080123901367  # angle, [-90°, 90°]
 )
 
 if __name__ == '__main__':
-    test_one_img(pad_mode='linear_ramp')
+    polygon2rbox(pad_mode='linear_ramp')

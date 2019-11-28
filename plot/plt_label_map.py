@@ -81,19 +81,20 @@ def plt_label_map(label_names, label_colors, rows, cols, row_height, col_width, 
                          xy=beg_pix, xycoords='data', xytext=(+13, -8), textcoords='offset points',
                          color='k')
             cnt += 1
+    plt.savefig('img/{}.png'.format(fig_title), bbox_inches='tight', pad_inches=0.1)
+    # plt.show()
 
-    plt.show()
+    # rm tmp color label img
+    os.remove('label_map%dx%d.png' % (rows, cols))
 
 
 if __name__ == '__main__':
-    csv_root = os.path.join(os.path.dirname(__file__), '..', 'asset/csv')
-
     # ADE20K
-    label_names, label_colors = get_label_name_colors(csv_path=os.path.join(csv_root, 'ade150.csv'))
+    label_names, label_colors = get_label_name_colors(csv_path='csv/ade150.csv')
     plt_label_map(label_names, label_colors, rows=10, cols=15, row_height=30, col_width=200, figsize=(22, 4), fig_title='ADE20K-150class')
     # SUN-RGBD
-    label_names, label_colors = get_label_name_colors(csv_path=os.path.join(csv_root, 'sun37.csv'))
+    label_names, label_colors = get_label_name_colors(csv_path='csv/sun37.csv')
     plt_label_map(label_names, label_colors, rows=4, cols=10, row_height=30, col_width=200, figsize=(14, 3), fig_title='SUNRGBD-37class')
     # CamVid
-    label_names, label_colors = get_label_name_colors(csv_path=os.path.join(csv_root, 'camvid32.csv'))
+    label_names, label_colors = get_label_name_colors(csv_path='csv/camvid32.csv')
     plt_label_map(label_names, label_colors, rows=4, cols=10, row_height=30, col_width=200, figsize=(16, 3), fig_title='CamVid-32class')
