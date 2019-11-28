@@ -6,7 +6,7 @@
 
 # 忽略所有此格式文件
 *.avi
-*.png
-*.jpg
+#*.png
+#*.jpg
 *.json
-*.csv
+#*.csv
