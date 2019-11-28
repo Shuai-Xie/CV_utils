@@ -6,6 +6,7 @@ import matplotlib.cm as cmx
 import numpy as np
 import cv2
 import math
+from box.box_utils import pt_in_img
 
 np.set_printoptions(suppress=True)
 
@@ -16,10 +17,6 @@ mpl.rcParams['legend.fontsize'] = 6
 cmap = plt.get_cmap('tab20')  # qualitative cmaps, >18
 cNorm = mcolors.Normalize(vmin=0, vmax=num_class - 1)
 scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=cmap)
-
-
-def pt_in_img(pt, img_w, img_h):
-    return 0 < pt[0] < img_w - 1 and 0 < pt[1] < img_h - 1
 
 
 def plt_2d_skeleton_MP(image, pose2Ds, joints_link,

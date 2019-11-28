@@ -6,7 +6,7 @@ https://www.learnopencv.com/selective-search-for-object-detection-cpp-python/
 """
 import cv2
 
-im = cv2.imread('breakfast.jpg')
+im = cv2.imread('../asset/img/breakfast.jpg')
 
 # resize image
 newHeight = 400

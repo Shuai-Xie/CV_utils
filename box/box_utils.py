@@ -2,6 +2,10 @@ import cv2
 import numpy as np
 
 
+def pt_in_img(pt, img_w, img_h):
+    return 0 <= pt[0] <= img_w - 1 and 0 <= pt[1] <= img_h - 1
+
+
 # convert float points of image to int points in a image
 def pt_float2int(pt, img_w, img_h):
     # x,y
