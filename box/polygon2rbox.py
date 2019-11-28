@@ -3,7 +3,7 @@ import numpy as np
 from box.box_utils import pt_float2int, pt_in_img
 
 img_info = {
-    "content": "9491abae-8c82-464c-abef-82517ba372a5___images_9_1_2cqh2390.jpg",
+    "content": "img/9491abae-8c82-464c-abef-82517ba372a5___images_9_1_2cqh2390.jpg",
     "annotation": [
         {"label": ["娇子_D"],
          "shape": "polygon",
@@ -81,9 +81,9 @@ def polygon2rbox(pad_mode='edge'):
     cv2.drawContours(img, contours=[rbox], contourIdx=0, color=(0, 0, 255), thickness=3)
 
     if pad_mode:
-        cv2.imwrite('rbox_{}.png'.format(pad_mode), img)
+        cv2.imwrite('img/rbox_{}.png'.format(pad_mode), img)
     else:
-        cv2.imwrite('rbox.png', img)
+        cv2.imwrite('img/rbox.png', img)
 
 
 a_rbox = (
