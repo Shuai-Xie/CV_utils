@@ -1,4 +1,5 @@
 import pinyin
+import re
 
 cigar_class_name_cn = [
     '大重九_A', '云烟_a', '娇子_B', '中华_B',
@@ -9,11 +10,13 @@ cigar_class_name_cn = [
 ]
 
 
-def get_en_name(cn_names):
+def get_en_name(cn_names):  # 不要拼音
     en_names = []
     for n in cn_names:
         cn = n[:-2]
-        en = pinyin.get(cn)
+        # en = pinyin.get(cn)  # 默认有读音
+        en = pinyin.get(cn, format='strip', delimiter=' ')  # 无拼音
+        en = ''.join([s.capitalize() for s in en.split(' ')])
         en_names.append(n.replace(cn, en))
     return en_names
 
