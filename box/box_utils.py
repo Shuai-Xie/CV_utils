@@ -33,9 +33,27 @@ def cvt_rect_fpts_to_x1y1x2y2(points, img_w, img_h):
 
 
 # convet points of bbox to (x,y,w,h) bbox
+# left x,y
 def cvt_rect_fpts_to_xywh(points, img_w, img_h):
     xmin, ymin, xmax, ymax = cvt_rect_fpts_to_x1y1x2y2(points, img_w, img_h)
     return [xmin, ymin, xmax - xmin, ymax - ymin]  # [x,y,w,h]
+
+
+def cvt_poly_fpts_to_xywh(points, img_w, img_h):
+    poly_pts = np.array([pt_float2int(pt, img_w, img_h) for pt in points])
+    xmin, xmax = np.min(poly_pts[:, 0]), np.max(poly_pts[:, 0])
+    ymin, ymax = np.min(poly_pts[:, 1]), np.max(poly_pts[:, 1])
+    # judge in image
+    xmin, xmax = max(xmin, 0), min(xmax, img_w)
+    ymin, ymax = max(ymin, 0), min(ymax, img_h)
+
+    return [xmin, ymin, xmax - xmin, ymax - ymin]  # [x,y,w,h]
+
+
+# center x,y
+def cvt_rect_ftps_to_center_xywh(points, img_w, img_h):
+    xmin, ymin, xmax, ymax = cvt_rect_fpts_to_x1y1x2y2(points, img_w, img_h)
+    return [(xmin + xmax) / 2, (ymin + ymax) / 2, xmax - xmin, ymax - ymin]  # [center_x,y,w,h]
 
 
 def cvt_poly_fpts_to_center_xywh_angle(points, img_w, img_h):
@@ -46,9 +64,15 @@ def cvt_poly_fpts_to_center_xywh_angle(points, img_w, img_h):
     return box, angle
 
 
+def cal_area(points, img_w, img_h):
+    poly_pts = np.array([pt_float2int(pt, img_w, img_h) for pt in points])
+    area = cv2.contourArea(poly_pts)
+    return area
+
+
 # convert (x1,y1,x2,y2) to normalized pts
 # 左上角 (x1,y1), 顺时针
-def cvt_box_to_rect_pts(box, img_w, img_h):
+def cvt_box_to_rect_fpts(box, img_w, img_h):
     x1, y1 = pt_int2float((box[0], box[1]), img_w, img_h)
     x2, y2 = pt_int2float((box[2], box[1]), img_w, img_h)
     x3, y3 = pt_int2float((box[2], box[3]), img_w, img_h)

@@ -55,15 +55,20 @@ def cal_offset_and_pad_img(img, rbox, mode='edge'):
     return offset, img
 
 
-def polygon2rbox(pad_mode='edge'):
+from box.box_utils import cvt_poly_fpts_to_xywh, cal_area
+
+
+def polygon2rbox(pad_mode=None):
     """
-    :param pad_mode: whether padding img when rbox exceeds ori img bounds
+    :param pad_mode: 'edge', whether padding img when rbox exceeds ori img bounds
     """
     img = cv2.imread(img_info['content'])
 
     ann = img_info['annotation'][0]
     points, img_w, img_h = ann['points'], ann['imageWidth'], ann['imageHeight']
     # points = points[::-1]   # cvt clock-wise to anti, result is same
+    print('area:', cal_area(points, img_w, img_h))
+
     poly_pts = np.array([pt_float2int(pt, img_w, img_h) for pt in points])
     rect = cv2.minAreaRect(poly_pts)  # center_pts, angle
     polygon = np.array(poly_pts).astype(np.int)
@@ -71,19 +76,25 @@ def polygon2rbox(pad_mode='edge'):
     # cal rotated box
     rbox = cv2.boxPoints(rect)
     rbox = np.array(rbox).astype(np.int)
+
     if pad_mode:
         offset, img = cal_offset_and_pad_img(img, rbox, mode=pad_mode)
         polygon += offset
         rbox += offset
 
     # draw ori polygon, rotated box
-    cv2.drawContours(img, contours=[polygon], contourIdx=0, color=(0, 255, 1), thickness=3)
+    cv2.drawContours(img, contours=[polygon], contourIdx=0, color=(0, 255, 0), thickness=3)
     cv2.drawContours(img, contours=[rbox], contourIdx=0, color=(0, 0, 255), thickness=3)
 
+    # cal bbox
+    x, y, w, h = cvt_poly_fpts_to_xywh(points, img_w, img_h)
+    print(x, y, w, h)
+    cv2.rectangle(img, (x, y), (x + w, y + h), color=(255, 0, 0), thickness=3)
+
     if pad_mode:
-        cv2.imwrite('img/rbox_{}.png'.format(pad_mode), img)
+        cv2.imwrite('imgs/rbox_{}.png'.format(pad_mode), img)
     else:
-        cv2.imwrite('img/rbox.png', img)
+        cv2.imwrite('imgs/rbox.png', img)
 
 
 a_rbox = (
@@ -93,4 +104,5 @@ a_rbox = (
 )
 
 if __name__ == '__main__':
-    polygon2rbox(pad_mode='linear_ramp')
+    # polygon2rbox(pad_mode='linear_ramp')
+    polygon2rbox(pad_mode='edge')
