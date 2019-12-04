@@ -19,12 +19,30 @@ Each layer i requires the following parameters to be fully represented:
 """
 
 import math
+from collections import OrderedDict
 
-# kernel, stride, padding
-# outsize:      55          27      27          13          13          13          13      6           6           6
-convnet = [[11, 4, 0], [3, 2, 0], [5, 1, 2], [3, 2, 0], [3, 1, 1], [3, 1, 1], [3, 1, 1], [3, 2, 0], [6, 1, 0], [1, 1, 0]]
-layer_names = ['conv1', 'pool1', 'conv2', 'pool2', 'conv3', 'conv4', 'conv5', 'pool5', 'fc6-conv', 'fc7-conv']
-imsize = 227
+# Convolution Pose Machine
+net = OrderedDict({  # kernel, stride, padding
+    'C1': [9, 1, 0],  # stride = 1
+    'P1': [2, 2, 0],  # stride = k_size
+    'C2': [9, 1, 0],
+    'P2': [2, 2, 0],
+    'C3': [9, 1, 0],
+    'P3': [2, 2, 0],
+    'C4': [5, 1, 0],
+    'C5': [9, 1, 0],
+    'C6': [1, 1, 0],
+    'C7': [1, 1, 0],
+    'C8': [11, 1, 0],
+    'C9': [11, 1, 0],
+    'C10': [11, 1, 0],
+    'C11': [1, 1, 0],
+    'C12': [1, 1, 0],
+})
+
+layer_names = list(net.keys())
+convnet = list(net.values())
+imsize = 512
 
 
 def cal_outsize():
@@ -80,21 +98,21 @@ def cal_RF():
     for i in range(len(convnet)):
         currentLayer = outFromIn(convnet[i], currentLayer)
         layerInfos.append(currentLayer)
-        printLayer(currentLayer, layer_names[i])
+        printLayer(currentLayer, '{}_{}x'.format(layer_names[i], convnet[i][0]))
 
-    print("------------------------")
-
-    layer_name = input("Layer name where the feature in: ")  # conv1
-    layer_idx = layer_names.index(layer_name)
-    idx_x = int(input("index of the feature in x dimension (from 0): "))  # 10
-    idx_y = int(input("index of the feature in y dimension (from 0): "))  # 10
-
-    n, j, r, start = layerInfos[layer_idx]  # n: 当前层 fm size
-
-    assert 0 <= idx_x < n and 0 <= idx_y < n
-
-    print("receptive field: (%s, %s)" % (r, r))  # 11
-    print("center: (%s, %s)" % (start + idx_x * j, start + idx_y * j))  # 45.5 原图 start 中心点 + 索引位置
+    # print("------------------------")
+    #
+    # layer_name = input("Layer name where the feature in: ")  # conv1
+    # layer_idx = layer_names.index(layer_name)
+    # idx_x = int(input("index of the feature in x dimension (from 0): "))  # 10
+    # idx_y = int(input("index of the feature in y dimension (from 0): "))  # 10
+    #
+    # n, j, r, start = layerInfos[layer_idx]  # n: 当前层 fm size
+    #
+    # assert 0 <= idx_x < n and 0 <= idx_y < n
+    #
+    # print("receptive field: (%s, %s)" % (r, r))  # 11
+    # print("center: (%s, %s)" % (start + idx_x * j, start + idx_y * j))  # 45.5 原图 start 中心点 + 索引位置
 
 
 if __name__ == '__main__':

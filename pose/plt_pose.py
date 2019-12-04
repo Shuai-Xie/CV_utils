@@ -175,8 +175,10 @@ def plt_kp_maps(kp_maps, joints_name, image=None):
 
     cols = 5
     rows = int(math.ceil(LEN / cols))
+
+    # use subplot to plt multi imgs
     f, axs = plt.subplots(rows, cols)
-    f.set_size_inches((cols * 4, rows * 3))  # 4:3
+    f.set_size_inches((cols * 4, rows * 3))  # 4:3, corresponds to img aspect ratio
 
     if image is not None:
         img_h, img_w, _ = image.shape
