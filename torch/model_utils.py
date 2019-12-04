@@ -1,7 +1,11 @@
 from torchviz import make_dot
 from torchsummary import summary
 import torch
+from torchvision.models.resnet import resnet18  # demo
+from torchvision.models.mobilenet import mobilenet_v2
 
+
+# visualize model architure
 
 def model_vis(model, input):
     g = make_dot(model(input), params=dict(model.named_parameters()))  # can't vis model which returns a list
@@ -17,6 +21,8 @@ def model_summary(net, input_size):
     summary(net, input_size, device='cpu')
 
 
+# see model layers
+
 def model_layers(model):
     # model.named_parameters() 与 model.state_dict() 相比，少了 运行过程中 bn
     print('{:>4} {:<50} {:<30} {}'.format('idx', 'param', 'size', 'grad'))
@@ -29,14 +35,26 @@ def model_params(net):
     params = list(net.parameters())
     k = 0
     for idx, layer in enumerate(params):
+        # print(type(layer))  # torch.nn.parameter.Parameter, Parameter(torch.Tensor)
+        # layer is actually a tensor
         print('layer (%d):' % idx, layer.size(), end=', ')
         mul = 1
-        for v in layer.size():
+        for v in layer.size():  # [out_C, in_C, kernel_w, kernel_h]
             mul *= v
         print('params:', mul)
         k += mul
     print('total params:', k)
 
+
+if __name__ == '__main__':
+    m1 = resnet18(pretrained=False)
+    m2 = mobilenet_v2(pretrained=False)  # If True, returns a model pre-trained on ImageNet
+
+    model_params(m1)
+    model_params(m2)
+
+
+# load/save model
 
 def load_model(model, model_path,
                optimizer=None, resume=False,
