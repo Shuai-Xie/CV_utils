@@ -6,7 +6,7 @@ import matplotlib.cm as cmx
 import numpy as np
 import cv2
 import math
-from box.box_utils import pt_in_img
+from utils.box_utils import pt_in_img
 
 np.set_printoptions(suppress=True)
 

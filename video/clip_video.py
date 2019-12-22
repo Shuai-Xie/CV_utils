@@ -7,6 +7,7 @@ def clip_videos(in_video, bg_subtractor, fg_thre=1000, write_clip_videos=False):
     cap = cv2.VideoCapture(in_video)
     video_w, video_h = int(cap.get(3)), int(cap.get(4))
 
+
     # bg kernel
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
 
@@ -37,7 +38,7 @@ def clip_videos(in_video, bg_subtractor, fg_thre=1000, write_clip_videos=False):
         # read again
         print('\nwrite valid clips')
         cap = cv2.VideoCapture(in_video)
-        # write video
+        # write video, cv2.CAP_PROP_FRAME_COUNT = 7
         fourcc = cv2.VideoWriter_fourcc(*'MP4V')
         vw_cut = cv2.VideoWriter(in_video.replace('.mp4', '_cut.mp4'), fourcc,
                                  int(cap.get(cv2.CAP_PROP_FPS)), (video_w, video_h))

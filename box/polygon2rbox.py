@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
-from box.box_utils import pt_float2int, pt_in_img
+from base_py.box_utils import pt_float2int, pt_in_img
 
 img_info = {
-    "content": "img/9491abae-8c82-464c-abef-82517ba372a5___images_9_1_2cqh2390.jpg",
+    "content": "imgs/9491abae-8c82-464c-abef-82517ba372a5___images_9_1_2cqh2390.jpg",
     "annotation": [
         {"label": ["娇子_D"],
          "shape": "polygon",
@@ -55,7 +55,7 @@ def cal_offset_and_pad_img(img, rbox, mode='edge'):
     return offset, img
 
 
-from box.box_utils import cvt_poly_fpts_to_xywh, cal_area
+from base_py.box_utils import cvt_poly_fpts_to_xywh, cal_area
 
 
 def polygon2rbox(pad_mode=None):
@@ -76,6 +76,7 @@ def polygon2rbox(pad_mode=None):
     # cal rotated box
     rbox = cv2.boxPoints(rect)
     rbox = np.array(rbox).astype(np.int)
+    print(rbox)
 
     if pad_mode:
         offset, img = cal_offset_and_pad_img(img, rbox, mode=pad_mode)
@@ -85,11 +86,19 @@ def polygon2rbox(pad_mode=None):
     # draw ori polygon, rotated box
     cv2.drawContours(img, contours=[polygon], contourIdx=0, color=(0, 255, 0), thickness=3)
     cv2.drawContours(img, contours=[rbox], contourIdx=0, color=(0, 0, 255), thickness=3)
+    # draw diagonal line of rbox
+    cv2.line(img, tuple(rbox[0]), tuple(rbox[2]), color=(0, 0, 255), thickness=2)
+    cv2.line(img, tuple(rbox[1]), tuple(rbox[3]), color=(0, 0, 255), thickness=2)
 
     # cal bbox
     x, y, w, h = cvt_poly_fpts_to_xywh(points, img_w, img_h)
     print(x, y, w, h)
     cv2.rectangle(img, (x, y), (x + w, y + h), color=(255, 0, 0), thickness=3)
+    # draw diagonal line of box
+    cv2.line(img, (x, y), (x + w, y + h), color=(255, 0, 0), thickness=2)
+    cv2.line(img, (x, y + h), (x + w, y), color=(255, 0, 0), thickness=2)
+
+    # draw rbox
 
     if pad_mode:
         cv2.imwrite('imgs/rbox_{}.png'.format(pad_mode), img)

@@ -56,5 +56,16 @@ def test_dict_update():
     pprint(a)
 
 
+def test_copy_dict():
+    a = {
+        'a': 1
+    }
+    # b = a # will change a
+    b = a.copy()
+    b['a'] = 2
+    print(a)
+    print(b)
+
+
 if __name__ == '__main__':
-    test_dict_update()
+    test_copy_dict()

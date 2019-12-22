@@ -6,3 +6,9 @@ def re_split_str():
     a = re.split(r'[1-4]', a)
     a = ''.join([s.capitalize() for s in a])
     print(a)
+
+
+# get a func in this way
+b = globals()['re_split_str']()
+
+print(b)
