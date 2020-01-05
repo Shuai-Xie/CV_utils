@@ -12,3 +12,15 @@ def re_split_str():
 b = globals()['re_split_str']()
 
 print(b)
+
+a = '123233.sdf.png'
+a = a.rsplit('.', 1)[0]  # 最多分1次
+print(a)
+
+a = {
+    '1': 12,
+    '2': 12
+}
+
+print(sum(a.values()))
+print(len(a))

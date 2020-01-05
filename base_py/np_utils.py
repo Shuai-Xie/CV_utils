@@ -192,4 +192,4 @@ def normalize():
 
 
 if __name__ == '__main__':
-    # cnt_same_elem()
+    cnt_same_elem()

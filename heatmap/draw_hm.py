@@ -103,7 +103,7 @@ def get_polygon_center(segmentation):  # coco segmentation
     segmentation = segmentation[0]
     segmentation = [x // 4 for x in segmentation]  # 1/4
     points = [(segmentation[i], segmentation[i + 1]) for i in range(0, len(segmentation), 2)]
-    polygon = Polygon(points)
+    polygon = Polygon(points)  # np (-1,2) 也可以
     x, y = polygon.centroid.xy  # x_array, y_array
     return x[0], y[0]
 
