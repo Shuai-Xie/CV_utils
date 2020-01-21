@@ -15,11 +15,11 @@ import py7zr
 rarfile.UNRAR_TOOL = r'C:\Program Files\WinRAR\UnRAR.exe'
 ALLOW_EXTS = ['rar', 'zip', '7z']
 
-zip_dir = r'C:\Users\Shuai\Desktop\IMG2019'
-ext_dir = r'C:\Users\Shuai\Desktop\IMG2019_res'
+zip_dir = r'C:\Users\Shuai\Desktop\IMG_add'
+ext_dir = r'C:\Users\Shuai\Desktop\IMG_add_res'
 
 # for dir in os.listdir(zip_dir):
-for dir in ['hw5', 'hw6']:
+for dir in os.listdir(zip_dir):
     print(dir)
     sub_dir = os.path.join(zip_dir, dir)
     sub_ext_dir = os.path.join(ext_dir, dir)

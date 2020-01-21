@@ -50,7 +50,7 @@ if __name__ == '__main__':
     m1 = resnet18(pretrained=False)
     m2 = mobilenet_v2(pretrained=False)  # If True, returns a model pre-trained on ImageNet
 
-    model_params(m1)
+    # model_params(m1)
     model_params(m2)
 
 
