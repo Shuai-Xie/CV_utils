@@ -41,6 +41,7 @@ def filter_no_submits(check_dir, out_file='no_submits.xls'):
 
 if __name__ == '__main__':
     root = r'C:\Users\Shuai\Desktop\IMG2019_res'
+
     for hw in os.listdir(root):
         print(hw)
         filter_no_submits(check_dir=os.path.join(root, hw))
