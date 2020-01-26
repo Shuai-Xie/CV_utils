@@ -7,3 +7,6 @@
 # 忽略所有此格式文件
 *.avi
 *.json
+
+# 忽略二级目录的 jupyter notebooks 缓存文件
+*/.ipynb_checkpoints
