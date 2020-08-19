@@ -1,8 +1,6 @@
 .DS_Store
-
-.idea/*.xml
-.idea/*.iml
-.idea/*/*.xml
+.idea
+*/__pycache__
 
 # 忽略所有此格式文件
 *.avi

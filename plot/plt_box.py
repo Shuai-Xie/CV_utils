@@ -48,7 +48,7 @@ def plt_bbox(img, boxes, labels, class2names, send_web=True):
     if send_web:
         # save for front img result
         sio = BytesIO()
-        plt.savefig(sio, format='png', bbox_inches='tight', pad_inches=0.0)
+        plt.savefig(sio, format='png', bbox_inches='tight', pad_inches=0.0)  # 无边框
         data = base64.encodebytes(sio.getvalue()).decode()
         img_src = 'data:image/png;base64,{}'.format(data)
         return img_src

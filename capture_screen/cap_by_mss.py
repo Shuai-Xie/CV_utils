@@ -7,7 +7,8 @@ import cv2
 唯一符合录屏需求，fps > 15
 """
 
-bbox = (0, 0, 800, 600)  # 定义窗口 left-top, right-bottom 坐标
+# 定义窗口坐标位置 left-top, right-bottom
+bbox = (0, 0, 800, 600)
 monitor = {
     'left': bbox[0],
     'top': bbox[1],
