@@ -3,6 +3,7 @@ from torchsummary import summary
 import torch
 from torchvision.models.resnet import resnet18  # demo
 from torchvision.models.mobilenet import mobilenet_v2
+import numpy as np
 
 
 # visualize model architure
@@ -19,6 +20,12 @@ def model_summary(net, input_size):
     :return:
     """
     summary(net, input_size, device='cpu')
+
+
+def count_parameters(net):
+    model_parameters = filter(lambda p: p.requires_grad, net.parameters())
+    params = sum([np.prod(p.size()) for p in model_parameters])
+    return params
 
 
 # see model layers
@@ -44,6 +51,12 @@ def model_params(net):
         print('params:', mul)
         k += mul
     print('total params:', k)
+
+
+def count_parameters(net):
+    model_parameters = filter(lambda p: p.requires_grad, net.parameters())
+    params = sum([np.prod(p.size()) for p in model_parameters])
+    return params
 
 
 if __name__ == '__main__':
